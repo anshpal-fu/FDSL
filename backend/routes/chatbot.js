@@ -2,7 +2,7 @@
 const express = require("express");
 const router = express.Router();
 
-router.post("/", (req, res) => {
+router.post("/chatbot", (req, res) => {
   const { message } = req.body;
 
   // Temporary response (later replace with actual chatbot logic)

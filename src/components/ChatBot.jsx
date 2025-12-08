@@ -11,12 +11,13 @@ const ChatBot = () => {
     },
   ]);
   const [inputValue, setInputValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
 
   const toggleChat = () => setIsOpen(!isOpen);
 
-  const handleSend = () => {
-    if (inputValue.trim() === "") return;
+  const handleSend = async () => {
+    if (inputValue.trim() === "" || isLoading) return;
 
     const userMessage = {
       id: messages.length + 1,
@@ -25,18 +26,49 @@ const ChatBot = () => {
       timestamp: new Date(),
     };
 
+    // Add user message to chat
     setMessages((prev) => [...prev, userMessage]);
     setInputValue("");
+    setIsLoading(true);
 
-    setTimeout(() => {
+    try {
+      // Send message to backend API
+      const response = await fetch("/api/chatbot", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message: inputValue }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
       const botResponse = {
         id: messages.length + 2,
-        text: "Thanks for your message. I'm an AI assistant demo.",
+        text: data.reply,
         sender: "bot",
         timestamp: new Date(),
       };
+      
       setMessages((prev) => [...prev, botResponse]);
-    }, 800);
+    } catch (error) {
+      console.error("Error sending message:", error);
+      
+      const errorMessage = {
+        id: messages.length + 2,
+        text: "Sorry, I encountered an error. Please try again.",
+        sender: "bot",
+        timestamp: new Date(),
+      };
+      
+      setMessages((prev) => [...prev, errorMessage]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleKeyPress = (e) => {
@@ -169,6 +201,17 @@ const ChatBot = () => {
                 </div>
               </div>
             ))}
+            {isLoading && (
+              <div className="flex justify-start">
+                <div className="max-w-[80%] sm:max-w-[70%] px-4 py-3 text-sm sm:text-base rounded-2xl shadow-sm bg-white text-gray-800 border border-gray-200 rounded-bl-none">
+                  <div className="flex space-x-2">
+                    <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce"></div>
+                    <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                    <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+                  </div>
+                </div>
+              </div>
+            )}
             <div ref={messagesEndRef} />
           </div>
 
@@ -198,28 +241,32 @@ const ChatBot = () => {
 
               <button
                 onClick={handleSend}
-                disabled={!inputValue.trim()}
+                disabled={!inputValue.trim() || isLoading}
                 className={`
                   px-5
                   flex items-center justify-center
                   bg-[#2F4A55] text-white
                   hover:bg-[#355A66]
                   transition-all
-                  ${!inputValue.trim() && "opacity-40 cursor-not-allowed"}
+                  ${(!inputValue.trim() || isLoading) && "opacity-40 cursor-not-allowed"}
                 `}
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  />
-                </svg>
+                {isLoading ? (
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                )}
               </button>
             </div>
           </div>
