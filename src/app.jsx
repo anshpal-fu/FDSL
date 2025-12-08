@@ -12,7 +12,7 @@ import Admission from "./pages/admission";
 import Contact from "./pages/contact";
 import SiteHeader from "./components/siteheader";
 import SiteFooter from "./components/sitefooter";
-import ChatBot from "./components/chatbot";
+import ChatBot from "./components/ChatBot";
 import ScrollToTop from "./components/ScrollToTop";
 
 // Import individual course components
