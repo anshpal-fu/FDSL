@@ -1,8 +1,8 @@
-export default function handler(request, response) {
-  const { message } = request.body;
+export default function handler(req, res) {
+  const { message } = req.body;
 
   // Temporary response (later replace with actual chatbot logic)
-  response.status(200).json({
+  res.status(200).json({
     reply: `You said: ${message}`
   });
 }
