@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import SiteFooter from './sitefooter';
 
 // Map difficulty levels to colors and labels
@@ -217,8 +218,8 @@ export default function CourseCard({
         </div>
 
         {/* CTA Button */}
-        <a
-          href={buttonLink || "/admission"}
+        <Link
+          to={buttonLink || "/admission"}
           className="
             block w-full py-3 sm:py-4 px-6 text-center 
             text-[#FBFCFC] font-bold rounded-xl
@@ -234,7 +235,7 @@ export default function CourseCard({
           <svg className="w-4 h-4 sm:w-5 sm:h-5 ml-2 sm:ml-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7-7 7m-7-7h16" />
           </svg>
-        </a>
+        </Link>
       </div>
 
       <span className="sr-only">{category}</span>
