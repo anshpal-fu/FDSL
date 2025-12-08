@@ -11,9 +11,13 @@ app.use(express.json());
 // Serve static files from the React app build directory
 app.use(express.static(path.join(__dirname, "../dist")));
 
-// Import chatbot routes
+// Import routes
 const chatbotRoutes = require("./routes/chatbotRoutes");
-app.use("/api", chatbotRoutes);
+const admissionRoutes = require("./routes/admission");
+
+// Use routes
+app.use("/api/chatbot", chatbotRoutes);
+app.use("/api", admissionRoutes);
 
 // Handle React routing, return all requests to React app
 app.get("*", (req, res) => {

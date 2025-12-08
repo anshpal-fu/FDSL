@@ -10,7 +10,7 @@ export default function Admission() {
   async function submit(path, formData, setLoading, label) {
     try {
       setLoading(true);
-      const res = await fetch(`http://localhost:4000/api/${path}`, {
+      const res = await fetch(`/api/${path}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
