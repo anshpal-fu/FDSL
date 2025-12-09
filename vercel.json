@@ -1,24 +1,6 @@
 {
-  "version": 2,
   "routes": [
-    {
-      "source": "/api/(.*)",
-      "destination": "/src/api/$1.js"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ],
-  "headers": [
-    {
-      "source": "(.*)",
-      "headers": [
-        {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        }
-      ]
-    }
+    { "src": "/api/(.*)", "dest": "/src/api/$1.js" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
