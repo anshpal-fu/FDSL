@@ -17,7 +17,7 @@ export default function SiteFooter() {
                 className="h-20 w-auto drop-shadow-lg"
               />
             </div>
-            <h3 className="text-xl font-bold text-[#315262] mb-2">RLC FREEDOM SOLUTIONS LLC</h3>
+            <h3 className="text-xl font-bold text-[#315262] mb-2">KLC FREEDOM SOLUTIONS LLC</h3>
             <p className="text-[#315262] mb-6 text-sm leading-relaxed">
               Empowering individuals with knowledge and tools for financial sovereignty through education in private law, credit optimization, and strategic wealth building.
             </p>
@@ -73,7 +73,7 @@ export default function SiteFooter() {
         
         <div className="border-t border-[#829494] mt-8 pt-8 text-center">
           <p className="text-sm text-[#315262]">
-            &copy; {year} RLC Freedom Solutions LLC. All rights reserved.
+            &copy; {year} KLC Freedom Solutions LLC. All rights reserved.
           </p>
         </div>
       </div>

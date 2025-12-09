@@ -18,7 +18,7 @@ export default function ConnectWithUs() {
             <div className="flex justify-center mb-6">
               <img 
                 src={logoImg} 
-                alt="RLC Freedom Solutions Logo" 
+                alt="KLC Freedom Solutions Logo" 
                 className="h-15 w-15"
               />
             </div>

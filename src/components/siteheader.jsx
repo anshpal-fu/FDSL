@@ -29,18 +29,18 @@ export default function SiteHeader() {
           <NavLink to="/" className="flex items-center gap-3">
             <img
               src={logoImg}
-              alt="RLC Logo"
+              alt="KLC Logo"
               className="w-10 h-10 sm:w-12 sm:h-12 drop-shadow-[0_2px_2px_rgba(255,255,255,0.8)]"
             />
             
             {/* Desktop Name */}
             <span className="text-white font-bold text-base sm:text-lg md:text-xl hidden md:block">
-              RLC FREEDOM SOLUTIONS LLC
+              KLC FREEDOM SOLUTIONS LLC
             </span>
             
             {/* Mobile Name */}
             <span className="text-white font-bold text-lg md:hidden">
-              RFSLCC
+              KFSLCC
             </span>
           </NavLink>
           
