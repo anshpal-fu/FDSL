@@ -1,0 +1,31 @@
+import express from "express";
+import { sendContactMail } from "../services/mail.service.js";
+
+const router = express.Router();
+
+router.post("/", async (req, res) => {
+  try {
+    const { FirstName, LastName, Subject, email, message } = req.body;
+
+    // Validate fields
+    if (!FirstName || !LastName || !Subject || !email || !message) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    // Call mail service
+    await sendContactMail({
+      FirstName,
+      LastName,
+      Subject,
+      email,
+      message,
+    });
+
+    return res.status(200).json({ message: "Message sent successfully" });
+  } catch (error) {
+    console.error("Contact Form Error:", error);
+    return res.status(500).json({ message: "Failed to send message", error: error.message });
+  }
+});
+
+export default router;
